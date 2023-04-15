@@ -1,4 +1,23 @@
-# URP Toon Shader
+# Learning Material for Toon Shading
+## What's this project for?
+
+This Project is used for recording my learning progress of Toon Shading
+
+## Related Projects:
+- https://github.com/unity3d-jp/UnityChanToonShaderVer2_Project  
+- https://github.com/Jason-Ma-233/JasonMaToonRenderPipeline  
+- https://github.com/you-ri/LiliumToonGraph  
+- https://github.com/Kink3d/kShading  
+- https://unity.cn/projects/china-unity-tech-week_linruofeng
+- https://github.com/ColinLeung-NiloCat/UnityURPToonLitShaderExample
+
+
+## Basic of Toon Shadering?
+
+
+
+## The Structure of This Project
+[URP Toon Shader]()
 - [Introduction](#Introduction)
 - [Properties](#Properties)
 	- [SurfaceOptions](#SurfaceOptions)
@@ -9,8 +28,6 @@
 	- [Outline](#Outline)
 	- [AdvancedOptions](#AdvancedOptions)
 - [Multi Pass Batch](#Multi-Pass-Batch)
-- [Reference](#Reference)
-- [Licenses](#Licenses)
 
 ## Introduction  
 Simple toon shader in unity universal pipeline.
@@ -109,19 +126,3 @@ Objcet2.Pass1-
 Object1.Pass2-  
 Object2.Pass2......  
 ![image-AfterBatch](image/AfterBatch.png)   
-
-## Reference
-
-https://github.com/unity3d-jp/UnityChanToonShaderVer2_Project  
-https://github.com/Jason-Ma-233/JasonMaToonRenderPipeline  
-https://github.com/you-ri/LiliumToonGraph  
-https://github.com/Kink3d/kShading  
-https://unity.cn/projects/china-unity-tech-week_linruofeng
-
-## Licenses
-
-MIT
-
-"Assets/UnityChan/License"
-
-© Unity Technologies Japan/UCL
