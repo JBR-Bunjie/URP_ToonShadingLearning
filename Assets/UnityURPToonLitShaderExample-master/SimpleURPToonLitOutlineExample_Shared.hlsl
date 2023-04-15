@@ -393,12 +393,6 @@ half4 ShadeFinalColor(Varyings input) : SV_TARGET
     // apply all lighting calculation
     half3 color = ShadeAllLights(surfaceData, lightingData);
 
-#ifdef ToonShaderIsOutline
-    color = ConvertSurfaceColorToOutlineColor(color);
-#endif
-
-    color = ApplyFog(color, input);
-
     return half4(color, surfaceData.alpha);
 }
 

@@ -9,13 +9,14 @@
 struct appdata {
     float4 vertex: POSITION;
     float3 normal : NORMAL;
+    float4 tangent : TANGENT;
     float2 uv: TEXCOORD0;
 };
 
 struct v2f {
     float4 vertex: SV_POSITION;
     float2 uv: TEXCOORD0;
-    float4 worldPos : TEXCOORD1;
+    float4 worldPosWithFog : TEXCOORD1;
     float3 worldNormalDir : TEXCOORD2;
 };
 

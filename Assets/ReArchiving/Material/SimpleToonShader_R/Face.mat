@@ -30,7 +30,7 @@ Material:
     - _AlphaClipping: 0.5
     - _CelShadowMidPoint: 0.5
     - _CelShadowWidth: 0.05
-    - _IsFace: 0
+    - _IsFace: 1
     - _OutlineWidth: 0.01
     - _ReceiveShadowMappingAmount: 0.5
     - _ReceiveShadowMappingOffset: 0.01
