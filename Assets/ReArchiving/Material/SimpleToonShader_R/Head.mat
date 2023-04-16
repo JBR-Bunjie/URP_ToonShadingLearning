@@ -25,12 +25,28 @@ Material:
         m_Texture: {fileID: 2800000, guid: 38b0fd74fd3c31140bf78e39b7db1534, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 38b0fd74fd3c31140bf78e39b7db1534, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTexDark:
+        m_Texture: {fileID: 2800000, guid: e22da664ebab32d4ca5bea4d43b0ff43, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Occlusion:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -45,15 +61,16 @@ Material:
     m_Floats:
     - _AdditionalLightIgnoreCelShade: 0.9
     - _AlphaClipping: 0.5
+    - _BumpMapStrength: 1
     - _CelShadeMidPoint: -0.5
     - _CelShadeSoftness: 0.05
-    - _CelShadowMidPoint: 0.5
-    - _CelShadowWidth: 0.05
+    - _CelShadowMidPoint: 0.16
+    - _CelShadowWidth: 0.01
     - _Cutoff: 0.5
     - _DirectLightMultiplier: 1
     - _EmissionMulByBaseColor: 0
     - _IndirectLightMultiplier: 1
-    - _IsFace: 1
+    - _IsFace: 0
     - _MainLightIgnoreCelShade: 0
     - _OcclusionRemapEnd: 1
     - _OcclusionRemapStart: 0
@@ -77,7 +94,7 @@ Material:
     - _MainColor: {r: 1, g: 1, b: 1, a: 1}
     - _OcclusionMapChannelMask: {r: 1, g: 0, b: 0, a: 0}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ReceiveShadowMappingColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ReceiveShadowMappingColor: {r: 0.8784314, g: 0.8784314, b: 0.8784314, a: 1}
     - _ShadowMapColor: {r: 1, g: 0.825, b: 0.78, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &5473920176902274156

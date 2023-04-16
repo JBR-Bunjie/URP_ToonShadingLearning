@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 
 namespace ReArchiving.Editor {
-    public class ReArchivingReArchivingToonShaderGUI : ReArchiving_ToonShaderPropertyData {
+    public class ReArchivingToonShaderGUI : ReArchiving_ToonShaderPropertyData {
         #region GUI
 
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] properties) {

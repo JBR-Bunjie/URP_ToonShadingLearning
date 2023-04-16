@@ -14,7 +14,7 @@ struct appdata {
 };
 
 struct v2f {
-    float4 vertex: SV_POSITION;
+    float4 positionCS: SV_POSITION;
     float2 uv: TEXCOORD0;
     float4 worldPosWithFog : TEXCOORD1;
     float3 worldNormalDir : TEXCOORD2;
@@ -30,8 +30,10 @@ struct SimpleToonObjectData {
 };
 
 struct SimpleToonSurfaceData {
-    float3 albedo;
-    float alpha;
+    float3 light_albedo;
+    float3 dark_albedo;
+    float alpha; // for now, just use light albedo's alpha
+    float occlusion;
 };
 
 
@@ -40,26 +42,32 @@ struct SimpleToonSurfaceData {
 // ------------------------------------------------------------
 TEXTURE2D(_MainTex);
 SAMPLER(sampler_MainTex);
+TEXTURE2D(_MainTexDark);
+SAMPLER(sampler_MainTexDark);
+TEXTURE2D(_BumpMap);
+SAMPLER(sampler_BumpMap);
 
 
 // ------------------------------------------------------------
 // Properties
 // ------------------------------------------------------------
 CBUFFER_START(UnityPerMaterial)
+
 float4 _MainTex_ST;
 half4 _MainColor;
+half4 _ReceiveShadowMappingColor;// MainColorDark
+half _ReceiveShadowMappingAmount;
+half _ReceiveShadowMappingOffset;
+half _CelShadowMidPoint;
+half _CelShadowWidth;
+
+half _BumpMapStrength;
+
 
 half _OutlineWidth;
 half4 _OutlineColor;
 
 half _IsFace;
-
-half _CelShadowMidPoint;
-half _CelShadowWidth;
-
-half _ReceiveShadowMappingAmount;
-half _ReceiveShadowMappingOffset;
-half4 _ReceiveShadowMappingColor;
 
 CBUFFER_END
 

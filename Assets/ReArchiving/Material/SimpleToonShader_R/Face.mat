@@ -21,16 +21,34 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 38b0fd74fd3c31140bf78e39b7db1534, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTexDark:
+        m_Texture: {fileID: 2800000, guid: e22da664ebab32d4ca5bea4d43b0ff43, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Occlusion:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _AlphaClipping: 0.5
+    - _BumpMapStrength: 1
     - _CelShadowMidPoint: 0.5
     - _CelShadowWidth: 0.05
     - _IsFace: 1
+    - _OcclusionStrength: 1
     - _OutlineWidth: 0.01
     - _ReceiveShadowMappingAmount: 0.5
     - _ReceiveShadowMappingOffset: 0.01
@@ -38,7 +56,7 @@ Material:
     m_Colors:
     - _MainColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ReceiveShadowMappingColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ReceiveShadowMappingColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &7013086254961434321
 MonoBehaviour:
