@@ -25,10 +25,11 @@ v2f vert(appdata v) {
     // To make the vert function compatible with shadow caster and other passes,
     // we need to do more calculations to get the correct world position in different situations.
     float3 worldPos = vertexPos.positionWS;
+    float3 viewPos = vertexPos.positionVS;
     // half fogFactor = ComputeFogFactor(vertexPos.positionCS.z);
     
     #ifdef OutlinePass
-    
+        worldPos = TransformPositionWSToOutlinePositionWS(worldPos, viewPos, vertexNormal.normalWS);
     #endif
 
     o.worldPosWithFog.xyz = worldPos;
@@ -37,7 +38,19 @@ v2f vert(appdata v) {
     o.positionCS = TransformWorldToHClip(worldPos);
     
     #ifdef OutlinePass
-    
+        // // [Read ZOffset mask texture]
+        // // we can't use tex2D() in vertex shader because ddx & ddy is unknown before rasterization, 
+        // // so use tex2Dlod() with an explict mip level 0, put explict mip level 0 inside the 4th component of param uv)
+        // float outlineZOffsetMaskTexExplictMipLevel = 0;
+        // float outlineZOffsetMask = tex2Dlod(_OutlineZOffsetMaskTex, float4(input.uv,0,outlineZOffsetMaskTexExplictMipLevel)).r; //we assume it is a Black/White texture
+        //
+        // // [Remap ZOffset texture value]
+        // // flip texture read value so default black area = apply ZOffset, because usually outline mask texture are using this format(black = hide outline)
+        // outlineZOffsetMask = 1-outlineZOffsetMask;
+        // outlineZOffsetMask = invLerpClamp(_OutlineZOffsetMaskRemapStart,_OutlineZOffsetMaskRemapEnd,outlineZOffsetMask);// allow user to flip value or remap
+        //
+        // // [Apply ZOffset, Use remapped value as ZOffset mask]
+        // output.positionCS = NiloGetNewClipPosWithZOffset(output.positionCS, _OutlineZOffset * outlineZOffsetMask + 0.03 * _IsFace);
     #endif
     
     // Shadow Caster Part
@@ -105,6 +118,14 @@ half4 frag(v2f i): SV_Target {
     // with a custom one.
     // color = MixFog(color, fogFactor);
 
+    #ifdef OutlinePass
+        color = _OutlineColor;
+    //     color = half3(0, 0, 0);
+    // #else
+    //     color = half3(1, 1, 1);
+    #endif
+    
+    
     return half4(color, 1);
     // return half4(simpleToonObjectData.worldNormkalDir, 1);
 }

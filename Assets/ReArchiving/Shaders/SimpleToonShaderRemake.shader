@@ -19,7 +19,6 @@
         _OcclusionStrength("Occlusion Strength", Range(0, 1)) = 1
 
 
-
         // Outline
         _OutlineWidth("Outline Width", Range(0, 0.5)) = 0.01
         _OutlineColor("Outline Color", Color) = (0, 0, 0, 1)
@@ -27,6 +26,7 @@
         // 
         [ToggleOff]_UsingAlphaClipping("Using Alpha Clipping?", float) = 0
         _AlphaClipping("Alpha Clipping", Range(0, 1)) = 0.5
+
 
         // Advance
         [ToggleOn]_IsFace("Is Face?", float) = 1
@@ -36,7 +36,6 @@
             "RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" "Queue" = "Geometry"
         }
         LOD 100
-
         Pass {
             Name "ForwardLit"
             Tags {
@@ -61,9 +60,8 @@
 
             #pragma vertex vert
             #pragma fragment frag
-            
+
             #include "Assets/ReArchiving/Include/SimpleToonShaderRemake_R/MainFunctions_SimpleToonShaderRemake.hlsl"
-            
             ENDHLSL
         }
 
@@ -74,7 +72,6 @@
             Cull Front
 
             HLSLPROGRAM
-
             // Direct copy all keywords from "ForwardLit" pass
             // ---------------------------------------------------------------------------------------------
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
@@ -93,9 +90,9 @@
             #define OutlinePass
 
             #include "Assets/ReArchiving/Include/SimpleToonShaderRemake_R/MainFunctions_SimpleToonShaderRemake.hlsl"
-            
             ENDHLSL
         }
+
 
         Pass {
             Name "ShadowCaster"
@@ -113,12 +110,40 @@
             #pragma fragment BaseColorAlphaClipTest
 
             #define ShadowCasterPass
-            
+
             #include "Assets/ReArchiving/Include/SimpleToonShaderRemake_R/MainFunctions_SimpleToonShaderRemake.hlsl"
-            
             ENDHLSL
         }
 
+        // DepthOnly pass. Used for rendering URP's offscreen depth prepass (you can search DepthOnlyPass.cs in URP package)
+        // For example, when depth texture is on, we need to perform this offscreen depth prepass for this toon shader. 
+        Pass
+        {
+            Name "DepthOnly"
+            Tags{"LightMode" = "DepthOnly"}
+
+            // more explicit render state to avoid confusion
+            ZWrite On // the only goal of this pass is to write depth!
+            ZTest LEqual // early exit at Early-Z stage if possible            
+            ColorMask 0 // we don't care about color, we just want to write depth, ColorMask 0 will save some write bandwidth
+            Cull Back // support Cull[_Cull] requires "flip vertex normal" using VFACE in fragment shader, which is maybe beyond the scope of a simple tutorial shader
+
+            HLSLPROGRAM
+
+            // the only keywords we need in this pass = _UseAlphaClipping, which is already defined inside the HLSLINCLUDE block
+            // (so no need to write any multi_compile or shader_feature in this pass)
+
+            #pragma vertex VertexShaderWork
+            #pragma fragment BaseColorAlphaClipTest // we only need to do Clip(), no need color shading
+
+            // because Outline area should write to depth also, define "ToonShaderIsOutline" to inject outline related code into VertexShaderWork()
+            #define OutlinePass
+
+            #include "Assets/ReArchiving/Include/SimpleToonShaderRemake_R/MainFunctions_SimpleToonShaderRemake.hlsl"
+
+            ENDHLSL
+        }
+        
     }
     CustomEditor "ReArchiving.Editor.ReArchivingSimpleToonShaderGUI"
 }

@@ -910,15 +910,15 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 0
   tangentSpace:
-    normalSmoothAngle: 90
-    normalImportMode: 0
+    normalSmoothAngle: 180
+    normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
-    blendShapeNormalImportMode: 0
+    blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips:
-  - b95dc7a44b85f5940a4694939d48a5ae
+  - af763458721483845a5fef36895ee38d
   importAnimation: 0
   humanDescription:
     serializedVersion: 3

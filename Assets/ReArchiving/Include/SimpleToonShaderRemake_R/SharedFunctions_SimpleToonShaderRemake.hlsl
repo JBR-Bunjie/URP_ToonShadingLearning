@@ -71,4 +71,18 @@ void DoClipTestToTargetAlphaTest(float i) {
     clip(i - 0.5);
 }
 
+half3 TransformPositionWSToOutlinePositionWS (float3 worldPos, float3 viewPos, float3 worldNormalDir) {
+    // https://stackoverflow.com/questions/44491379/accessing-members-of-a-matrix-in-hlsl
+    float fovCot = unity_CameraProjection._m11;
+
+    float fov = atan(1.0 / fovCot) * 2.0 * (180 / 3.1415);
+
+    // float vSZClamp = clamp(abs(viewPos.z), 0, 1) * fov;
+    float vSZClamp = saturate(abs(viewPos.z)) * fov;
+
+    float outlineExpandAmount = vSZClamp * 0.0005 * _OutlineWidth;
+    
+    return worldPos + worldNormalDir * outlineExpandAmount;
+}
+
 #endif

@@ -10,6 +10,7 @@ namespace ReArchiving.Editor {
 
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] properties) {
             m_BaseFoldout = GetFoldoutState(FoldoutName.Base);
+            m_OutlineFoldout = GetFoldoutState(FoldoutName.Outline);
             m_AdvanceFoldout = GetFoldoutState(FoldoutName.Advance);
 
             // https://docs.unity.cn/cn/2021.3/ScriptReference/ShaderGUI.FindProperty.html
@@ -26,6 +27,10 @@ namespace ReArchiving.Editor {
             m_BumpMap = FindProperty(InsideMaterialProperties.BumpMap, properties, false);
             m_BumpMapStrength = FindProperty(InsideMaterialProperties.BumpMapStrength, properties, false);
 
+            // Outline
+            m_OutlineWidth = FindProperty(InsideMaterialProperties.OutlineWidth, properties, false);
+            m_OutlineColor = FindProperty(InsideMaterialProperties.OutlineColor, properties, false);
+            
             // Advance
             m_IsFace = FindProperty(InsideMaterialProperties.IsFace, properties, false);
             
@@ -56,7 +61,6 @@ namespace ReArchiving.Editor {
         #region Properties
 
         private void DrawProperties(MaterialEditor materialEditor) {
-            // Base
             // foreach (var foldout in MFoldouts) {
             //     var tempFoldout = EditorGUILayout.BeginFoldoutHeaderGroup(foldout, );
             //     if (tempFoldout) {
@@ -65,6 +69,7 @@ namespace ReArchiving.Editor {
             //         EditorGUILayout.Space();
             //     }
             // }
+            // Base
             var baseFoldout = EditorGUILayout.BeginFoldoutHeaderGroup(m_BaseFoldout, GUIContentStruct.BaseFoldout);
             if (baseFoldout) {
                 EditorGUILayout.Space();
@@ -72,6 +77,16 @@ namespace ReArchiving.Editor {
                 EditorGUILayout.Space();
             }
             SetFoldoutState(FoldoutName.Base, m_BaseFoldout, baseFoldout);
+            EditorGUILayout.EndFoldoutHeaderGroup();
+            
+            // Outline
+            var outlineFoldout = EditorGUILayout.BeginFoldoutHeaderGroup(m_OutlineFoldout, GUIContentStruct.OutlineFoldout);
+            if (outlineFoldout) {
+                EditorGUILayout.Space();
+                DrawOutlineOption(materialEditor);
+                EditorGUILayout.Space();
+            }
+            SetFoldoutState(FoldoutName.Outline, m_OutlineFoldout, outlineFoldout);
             EditorGUILayout.EndFoldoutHeaderGroup();
             
             // Advance
@@ -140,15 +155,32 @@ namespace ReArchiving.Editor {
                     EditorGUI.showMixedValue = false;
                 }
             }
-
-            // if (material) {
-            //     if (material.HasProperty(InsideMaterialProperties.MainTex) && material.HasProperty(InsideMaterialProperties.MainColor)) {
-            // materialEditor.TexturePropertySingleLine(GUIContentStruct.MainColor, m_MainTex, m_MainColor);
-            //
-            //         
-            //     }
-            //     
-            // }
+        }
+        
+        private void DrawOutlineOption(MaterialEditor materialEditor) {
+            Material material = materialEditor.target as Material;
+            
+            if (material) {
+                if (material.HasProperty(InsideMaterialProperties.OutlineWidth)) {
+                    EditorGUI.showMixedValue = m_OutlineWidth.hasMixedValue;
+                    var temp = EditorGUILayout.Slider(GUIContentStruct.OutlineWidth, m_OutlineWidth.floatValue, 0, 0.5f);
+                    if (EditorGUI.EndChangeCheck()) {
+                        materialEditor.RegisterPropertyChangeUndo(InsideMaterialProperties.OutlineWidth);
+                        m_OutlineWidth.floatValue = temp;
+                    }
+                    EditorGUI.showMixedValue = false;
+                }
+                
+                if (material.HasProperty(InsideMaterialProperties.OutlineColor)) {
+                    EditorGUI.showMixedValue = m_OutlineColor.hasMixedValue;
+                    var temp = EditorGUILayout.ColorField(GUIContentStruct.OutlineColor, m_OutlineColor.colorValue);
+                    if (EditorGUI.EndChangeCheck()) {
+                        materialEditor.RegisterPropertyChangeUndo(InsideMaterialProperties.OutlineColor);
+                        m_OutlineColor.colorValue = temp;
+                    }
+                    EditorGUI.showMixedValue = false;
+                }
+            }
         }
         
         private void DrawAdvanceOption(MaterialEditor materialEditor) {

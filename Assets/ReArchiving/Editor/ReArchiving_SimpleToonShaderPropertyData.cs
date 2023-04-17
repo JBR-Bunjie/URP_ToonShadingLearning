@@ -7,7 +7,8 @@ namespace ReArchiving.Editor {
 
         protected struct GUIContentStruct {
             // Fold
-            public static readonly GUIContent BaseFoldout = new GUIContent("Base Foldout");
+            public static readonly GUIContent BaseFoldout = new GUIContent("Base");
+            public static readonly GUIContent OutlineFoldout = new GUIContent("Outline");
             public static readonly GUIContent AdvanceFoldout = new GUIContent("Advance");
 
             // Base Properties
@@ -25,6 +26,10 @@ namespace ReArchiving.Editor {
             public static readonly GUIContent BumpMap = new GUIContent("Bump Map");
             public static readonly GUIContent BumpMapStrength = new GUIContent("Bump Strength");
 
+            // Outline Properties
+            public static readonly GUIContent OutlineWidth = new GUIContent("Outline Width");
+            public static readonly GUIContent OutlineColor = new GUIContent("Outline Color");
+            
             // Advance Properties
             public static readonly GUIContent IsFace = new GUIContent("Is Face");
         }
@@ -43,6 +48,10 @@ namespace ReArchiving.Editor {
             
             public static readonly string BumpMap = "_BumpMap";
             public static readonly string BumpMapStrength = "_BumpMapStrength";
+            
+            // Outline Properties
+            public static readonly string OutlineWidth = "_OutlineWidth";
+            public static readonly string OutlineColor = "_OutlineColor";
 
             // Advance Properties
             public static readonly string RenderQueue = "_RenderQueue";
@@ -51,6 +60,7 @@ namespace ReArchiving.Editor {
 
         protected struct FoldoutName {
             public static readonly string Base = "Base";
+            public static readonly string Outline = "Outline";
             public static readonly string Advance = "Advance";
         }
         
@@ -58,6 +68,7 @@ namespace ReArchiving.Editor {
 
         // Foldouts
         protected static bool m_BaseFoldout;
+        protected static bool m_OutlineFoldout;
         protected static bool m_AdvanceFoldout;
 
         // Base
@@ -75,6 +86,10 @@ namespace ReArchiving.Editor {
         protected MaterialProperty m_BumpMap;
         protected MaterialProperty m_BumpMapStrength;
         
+        
+        // Outline
+        protected MaterialProperty m_OutlineWidth;
+        protected MaterialProperty m_OutlineColor;
 
         // Advance
         protected MaterialProperty m_IsFace;
